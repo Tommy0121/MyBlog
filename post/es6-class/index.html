@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Es6 Class - My New Hugo Site</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="xia" />
+  <meta name="description" content="用jest写react的测试的时候有出现一个问题，就是组件中有用到anime.js来制作动画(为啥不用CSSTransition，因为这玩意" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.69.0" />
+
+
+<link rel="canonical" href="https://tommy0121.github.io/post/es6-class/" />
+
+
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.af20b78e95c84de86b00a0242a4a77bd2601700e1b250edf27537d957ac0041d.css" integrity="sha256-ryC3jpXITehrAKAkKkp3vSYBcA4bJQ7fJ1N9lXrABB0=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="Es6 Class" />
+<meta property="og:description" content="用jest写react的测试的时候有出现一个问题，就是组件中有用到anime.js来制作动画(为啥不用CSSTransition，因为这玩意" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tommy0121.github.io/post/es6-class/" />
+<meta property="article:published_time" content="2019-04-24T11:25:22+08:00" />
+<meta property="article:modified_time" content="2019-04-24T11:25:22+08:00" />
+<meta itemprop="name" content="Es6 Class">
+<meta itemprop="description" content="用jest写react的测试的时候有出现一个问题，就是组件中有用到anime.js来制作动画(为啥不用CSSTransition，因为这玩意">
+<meta itemprop="datePublished" content="2019-04-24T11:25:22&#43;08:00" />
+<meta itemprop="dateModified" content="2019-04-24T11:25:22&#43;08:00" />
+<meta itemprop="wordCount" content="2104">
+
+
+
+<meta itemprop="keywords" content="javascript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Es6 Class"/>
+<meta name="twitter:description" content="用jest写react的测试的时候有出现一个问题，就是组件中有用到anime.js来制作动画(为啥不用CSSTransition，因为这玩意"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">碎碎念</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/post/">归档</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/categories/">分类</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      碎碎念
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    <style>
+      .post .post-content code{
+        background: inherit;
+        color: inherit;
+      }
+    </style>
+    
+    <header class="post-header">
+      <h1 class="post-title">Es6 Class</h1>
+      
+      <div class="post-meta">
+        <time datetime="2019-04-24" class="post-time">
+          2019-04-24
+        </time>
+        <div class="post-category">
+            <a href="https://tommy0121.github.io/categories/theory/"> theory </a>
+            
+          </div>
+        
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>  用jest写react的测试的时候有出现一个问题，就是组件中有用到anime.js来制作动画(为啥不用CSSTransition，因为这玩意貌似满足不了需求，也可能是我太菜了..)，结果在jest执行到anime.js的某个方法后卡住(现在想想其实是一直不输出code coverage，可能是Istanbul的问题..)。</p>
+<p>  后来呢就决定绕过所有anime.js方法。具体是怎么做的呢，首先因为anime.js是直接操作dom的，所以anime.js的所有功能都写在了componentDidMount里面，所以在测试的时候在beforeEach里面添了这么一行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">MyComponent</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">componentDidMount</span> <span style="color:#f92672">=</span> () =&gt; {}
+</code></pre></div><p>  这么一来，在测试componentDidMount的时候就是啥也没执行了。看到这里，应该就很清楚，js里面的class其实本质上就是一个function，在class里面定义一个成员方法大致等于</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span> {
+  <span style="color:#a6e22e">MyFunction</span>(){}
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">MyClass</span>(){}
+
+<span style="color:#a6e22e">MyClass</span>.<span style="color:#a6e22e">prototype</span><span style="color:#f92672">=</span>{
+  <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">MyClass</span>,
+  <span style="color:#a6e22e">MyFunction</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(){}
+}
+</code></pre></div><p>  到这里还没结束，基础不牢固的我(得找个时候去看看犀牛书啥的..)又开始很奇怪了：为啥这里要用function来模拟class呢？而且function在js里面到底算是一种什么样的结构，js的基本类型里面可没有function。</p>
+<p>  在尝试使用object来模仿class时，发现object是没有构造函数的，而直接使用const a = {}会直接获得一个object的实例，也就是说用object来声明一个类是不可能的，因为获得的永远是一个实例。如果非要用object来模拟class，就只能使用工厂模式，定义一个方法，传入必要参数返回一个object。具体形式如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">classFactory</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">description</span>){
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">object</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">name</span>,
+  <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">description</span>
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">object</span>;
+}
+</code></pre></div><p>  这样的方法怎么能叫做class？它甚至无法做到继承。所以目光又转向了function。那么function到底是个啥玩意儿呢？<br>
+  js里面在基本类型之外还有一大把的内置对象，其中有个内置对象是Function，而所有定义的function都是Function对象的实例。所以以下两种写法其实作用一样。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span>){
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#a6e22e">b</span>;
+}
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">sum</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Function(<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;return a + b&#39;</span>);
+</code></pre></div><p>  至于Function的对象的特性啥的，建议看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions">MDN</a>。<br>
+  重点来了，如何使用function来模拟一个class并且能让他可以继承呢？现在的我已经是看过一点原型了，所以自己的第一想法是张这样的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>) {
+   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getDesc</span> <span style="color:#f92672">=</span> () =&gt; {
+     <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`Myname is </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+   }
+   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getName</span> <span style="color:#f92672">=</span> () =&gt; {
+     <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+   }
+ }
+
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Male</span>(){
+  <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>,<span style="color:#a6e22e">arguments</span>);
+   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">gender</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;male&#39;</span>;
+   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getDesc</span> <span style="color:#f92672">=</span> () =&gt; {
+     <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`Myname is </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> and I&#39;m </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">gender</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+   }
+}
+
+<span style="color:#a6e22e">Male</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#39;people&#39;</span>);
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">MaleStudent</span>(){
+  <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>,<span style="color:#a6e22e">arguments</span>);
+   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">job</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;student&#39;</span>;
+    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getDesc</span> <span style="color:#f92672">=</span> () =&gt; {
+     <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`Myname is </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> and I&#39;m </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">gender</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> I&#39;m a </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">job</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+   }
+ }
+
+ <span style="color:#a6e22e">MaleStudent</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Male</span>();
+</code></pre></div><p>  尝试看看function是什么样的：<br>
+  看起来还ok的样子，但是这个继承是没法继承构造方法的，而且这个prototype直接等于一个实例看着有点膈应..，要应用构造函数的话，可以在子类里面调用父类的apply或者call，类似这样<strong>Person.apply(this,arguments)</strong>。反正网上js模拟类的方法多得是，看着给人的感觉就是在写&hellip;茴的四种写法..所以具体性能优劣等碰到了再说。<br>
+  还有一点要提的是，在阮一峰博客中看到，使用这种方法继承的时候需要在<strong>Male.prototype = new Person(&lsquo;people&rsquo;);<strong>后面添加</strong>Male.prototype.constructor=Male</strong>，并且指明了在所有改变prototype之后都需要重新设定constructor，但是我这里尝试添加和没有添加constructor发现这个构造方法都是生效的，instanceof关键字也都是true(讲道理，instanceof 是判断构造函数是否在当前的instance的原型链上面，所以子类实例 instanceof 父类构造函数就应该是true吧)。<br>
+  所以说是说需要重新指定constructor，但是并没有找到这么做的现实原因&hellip;<br>
+  到这里貌似结束了？不，当我们写ES6以上的语法时候，由于node环境是不支持class语法的，所以我们都是用babel来进行编译的，react的jsx编译也用的babel的编译器，讲道理，最广泛的说法应该是babel编译出来的版本</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">_inherits</span>(<span style="color:#a6e22e">subClass</span>, <span style="color:#a6e22e">superClass</span>) { <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">superClass</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#34;function&#34;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">superClass</span> <span style="color:#f92672">!==</span> <span style="color:#66d9ef">null</span>) { <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">TypeError</span>(<span style="color:#e6db74">&#34;Super expression must either be null or a function&#34;</span>); } <span style="color:#a6e22e">subClass</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">superClass</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">superClass</span>.<span style="color:#a6e22e">prototype</span>, { <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">subClass</span>, <span style="color:#a6e22e">writable</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">configurable</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> } }); <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">superClass</span>) <span style="color:#a6e22e">_setPrototypeOf</span>(<span style="color:#a6e22e">subClass</span>, <span style="color:#a6e22e">superClass</span>); }
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">_setPrototypeOf</span>(<span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span>) { <span style="color:#a6e22e">_setPrototypeOf</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">setPrototypeOf</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">_setPrototypeOf</span>(<span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span>) { <span style="color:#a6e22e">o</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>; <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">o</span>; }; <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_setPrototypeOf</span>(<span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span>); }
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">A</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">A</span>() {
+  <span style="color:#a6e22e">_classCallCheck</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">A</span>);
+
+
+  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;name&#39;</span>;
+};
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">=</span>
+<span style="color:#75715e">/*#__PURE__*/</span>
+<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">_A</span>) {
+  <span style="color:#a6e22e">_inherits</span>(<span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">_A</span>);
+
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">B</span>() {
+    <span style="color:#a6e22e">_classCallCheck</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">B</span>);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">_possibleConstructorReturn</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">_getPrototypeOf</span>(<span style="color:#a6e22e">B</span>).<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">arguments</span>));
+  }
+
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">B</span>;
+}(<span style="color:#a6e22e">A</span>);
+</code></pre></div><p>  忽略check方法咱默认check方法都通过，那么这里具体执行的其实就是  _inherits(B, _A);和getPrototyoeOf().apply(this.arguments)。看样子好像就是首先将父类的赋予子类的prototype，自定义一个constructor，然后父类构造函数绑定。</p>
+<p>  好了，到此为止，这个componentDidMount引出来的发散出来的思考就这些了。不知道为什么，查了一大堆资料，却总觉得我是在挖JavaScript的黑历史&hellip;我相信这些原型链搞出来的继承应该是 <a href="https://en.wikipedia.org/wiki/Ecma_International" title="Ecma International">Ecma International</a>希望屏蔽掉(这些对象的定义之类的就应该标准化&hellip;)，不希望开发者用到的。而且有了ES6 class和babel之后再用prototype确实给人感觉很蠢&hellip;</p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xia</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+      2019-04-24
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://tommy0121.github.io/tags/javascript/">javascript</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/jsx-virtual-dom/">
+            
+            <i class="iconfont">
+              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+            </i>
+            <span class="prev-text nav-default">Jsx Virtual Dom</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+    
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+
+
+<a href="https://tommy0121.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2019 -
+    2020
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        xia
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.dee43230127a73d039a734510fa896c89c3c7ce0cf0be0c7a7433f8fd69b76dc.js" integrity="sha256-3uQyMBJ6c9A5pzRRD6iWyJw8fODPC&#43;DHp0M/j9abdtw=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

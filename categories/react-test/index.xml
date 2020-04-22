@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>React Test on My New Hugo Site</title>
+    <link>https://tommy0121.github.io/categories/react-test/</link>
+    <description>Recent content in React Test on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 10 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tommy0121.github.io/categories/react-test/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Jest React Test</title>
+      <link>https://tommy0121.github.io/post/jest-react-test/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/jest-react-test/</guid>
+      <description>首先呢，咱这里要求测试覆盖率要有90以上，UI也要测。原本用的mocha测试框架，然后由于有大量的UI需要测试，导致了测试代码比原本的代码还</description>
+    </item>
+    
+  </channel>
+</rss>

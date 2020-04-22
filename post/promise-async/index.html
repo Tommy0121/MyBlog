@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Promise Async - My New Hugo Site</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="xia" />
+  <meta name="description" content="首先声明想要记录这个东西上下文。在之前只用过fetch和ajax，就是网络请求的时候一般都是fetch().then().catch()这样" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.69.0" />
+
+
+<link rel="canonical" href="https://tommy0121.github.io/post/promise-async/" />
+
+
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.af20b78e95c84de86b00a0242a4a77bd2601700e1b250edf27537d957ac0041d.css" integrity="sha256-ryC3jpXITehrAKAkKkp3vSYBcA4bJQ7fJ1N9lXrABB0=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="Promise Async" />
+<meta property="og:description" content="首先声明想要记录这个东西上下文。在之前只用过fetch和ajax，就是网络请求的时候一般都是fetch().then().catch()这样" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tommy0121.github.io/post/promise-async/" />
+<meta property="article:published_time" content="2019-04-29T13:41:10+08:00" />
+<meta property="article:modified_time" content="2019-04-29T13:41:10+08:00" />
+<meta itemprop="name" content="Promise Async">
+<meta itemprop="description" content="首先声明想要记录这个东西上下文。在之前只用过fetch和ajax，就是网络请求的时候一般都是fetch().then().catch()这样">
+<meta itemprop="datePublished" content="2019-04-29T13:41:10&#43;08:00" />
+<meta itemprop="dateModified" content="2019-04-29T13:41:10&#43;08:00" />
+<meta itemprop="wordCount" content="2137">
+
+
+
+<meta itemprop="keywords" content="javascript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Promise Async"/>
+<meta name="twitter:description" content="首先声明想要记录这个东西上下文。在之前只用过fetch和ajax，就是网络请求的时候一般都是fetch().then().catch()这样"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">碎碎念</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/">主页</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/post/">归档</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/tags/">标签</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/categories/">分类</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      碎碎念
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/">主页</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://tommy0121.github.io/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    <style>
+      .post .post-content code{
+        background: inherit;
+        color: inherit;
+      }
+    </style>
+    
+    <header class="post-header">
+      <h1 class="post-title">Promise Async</h1>
+      
+      <div class="post-meta">
+        <time datetime="2019-04-29" class="post-time">
+          2019-04-29
+        </time>
+        <div class="post-category">
+            <a href="https://tommy0121.github.io/categories/theory/"> theory </a>
+            
+          </div>
+        
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#async-await">async await</a></li>
+    <li><a href="#promise">Promise</a></li>
+    <li><a href="#为什么">为什么</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>  首先声明想要记录这个东西上下文。在之前只用过fetch和ajax，就是网络请求的时候一般都是fetch().then().catch()这样的promise链式调用，然而项目里面看见的api接口访问长这样</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">apiCaller</span>(){ <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)}<span style="color:#960050;background-color:#1e0010">；</span>
+
+<span style="color:#a6e22e">async</span> <span style="color:#a6e22e">aplClient</span>(){
+  <span style="color:#66d9ef">try</span>{
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">apiCaller</span>();
+  }<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">error</span>){
+    <span style="color:#a6e22e">doErrorExcution</span>(<span style="color:#a6e22e">error</span>);
+  }
+}
+
+</code></pre></div><p>  try catch好说，啥语言都有的语法，但是这个await是个啥&hellip;.8说了，查资料去&hellip;</p>
+<h2 id="async-await">async await</h2>
+<p>  首先，async和await使用方法。await必须在async方法内，当执行到await时候，await后面的语句会在await语句执行完之后执行。还有就是await 执行完赋予变量是Promise.resolve()里面的值，如果有error则直接进catch。<br>
+  咱先搞个demo试试，首先我不加await关键字</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">excuteAfterOneSec</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#a6e22e">resolve</span> =&gt; {
+      <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+        <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;1&#39;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;1 sec&#39;</span>);
+      }, <span style="color:#ae81ff">1000</span>);
+    })
+  }
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">excuteAfterTwoSec</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#a6e22e">resolve</span> =&gt; {
+      <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+        <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;2&#39;</span>);
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;2 sec&#39;</span>);
+      }, <span style="color:#ae81ff">2000</span>);
+    })
+  };
+ <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">example</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> () =&gt; {
+    <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">excuteAfterTwoSec</span>();
+    <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">excuteAfterOneSec</span>();
+  }
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">example</span>());
+</code></pre></div><p>  得到的结果是先打印了2再打印1。删掉await之后，就先打印了1,再打印2。就不放置结果了&hellip;.<br>
+  await是这样的，那么async这个关键字表示了啥啊，首先async这个方法表示函数是异步的(尼玛的，废话)&hellip;其次，async修饰的函数返回的是一个promise&hellip;上述example函数打印出来长这样。<br>
+<img src="https://upload-images.jianshu.io/upload_images/6229530-b0578af11804be1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="example"></p>
+<p>  正常来说我这个函数没有定义返回值，我打印出来的值应该是个undefined。然而打印出来一个Promise&hellip;而且在函数内如果有await的话，那么返回的promise在await执行完毕之前状态为pending，如果没有await的话，返回的是一个状态确定的promise。如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">example</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> () =&gt; {
+    <span style="color:#a6e22e">excuteAfterTwoSec</span>();
+    <span style="color:#a6e22e">excuteAfterOneSec</span>();
+  }
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">example</span>());
+</code></pre></div><p>  这里的example相当于返回的Promise.resolve(undefined)。所以这个特性有啥用呢&hellip;俺也不知道，俺也没碰到&hellip;.咱只知道下面这种情况有问题。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">Ids</span>.<span style="color:#a6e22e">map</span>( <span style="color:#a6e22e">async</span> <span style="color:#a6e22e">id</span> =&gt;<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">id</span>));
+</code></pre></div><p>  网上比较一致的说法是，当你需要某个数组逐步执行的时候，以下写法是错的&hellip;.为啥呢，因为await只会阻塞map里面callback，但是并不会阻塞map函数，所以当map结束之后，并不能保证我所有阻塞函数都完成了，正确的要咋整呢。那就要看promise了呀，如下所示</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">example</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> () =&gt;{
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promises</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Ids</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">id</span> =&gt; <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">id</span>))
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">promises</span>);
+}
+</code></pre></div><p>  辣么，接下来就讲讲关于Promise的东西。</p>
+<h2 id="promise">Promise</h2>
+<p>  说到Promise，其实最开始知道Promise是因为实习的时候用angular，然后官方tutorial直接使用的fetch。然后就从原本的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">ajax</span>({
+  <span style="color:#a6e22e">success</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){};
+  <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>() {};
+})
+</code></pre></div><p>演变成了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>()).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; <span style="color:#a6e22e">excuteData</span>(<span style="color:#a6e22e">data</span>)).<span style="color:#66d9ef">catch</span>();
+</code></pre></div><p>  那么，Promise咋用呢，上面哪两个函数其实差不多了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promise1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>,<span style="color:#a6e22e">reject</span>) =&gt; {
+<span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+    <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;foo&#39;</span>);
+  }, <span style="color:#ae81ff">300</span>);
+});
+<span style="color:#a6e22e">promise1</span>
+  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; {<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>); <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>})
+  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">length</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">length</span>))
+  .<span style="color:#66d9ef">catch</span>();
+</code></pre></div><p>  这里面会在<strong>resolve执行之后执行then</strong>方法，并且传入resolve的参数，会作为then的callBack的参数(所以这里then里面的data就是&rsquo;foo'了)，同时<strong>then()也会返回一个Promise</strong>，像这里的return data.length，其实返回的是一个Promise.resolve(data.length)。<br>
+  所以呢，data.length又会作为参数传到下一个then(这里的then里面的length就是foo的length 等于 3)。而<strong>catch方法在被reject的时候调用</strong>。如果出现这样的返回，就进的catch方法，如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promise1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>,<span style="color:#a6e22e">reject</span>) =&gt; {
+<span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+    <span style="color:#a6e22e">resolve</span>(<span style="color:#e6db74">&#39;foo&#39;</span>);
+  }, <span style="color:#ae81ff">300</span>);
+});
+<span style="color:#a6e22e">promise1</span>
+  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; {<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>); <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">length</span>})
+  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">length</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">length</span>))
+  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">data</span> =&gt;<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>));
+</code></pre></div><p>  自己运行一下就可以发现在第一个then中出现error之后不执行第二个then，直接执行了catch。<br>
+  那么问题又来了，Promise和async/await有啥关系呢&hellip;事实上，async/await是generator和promise的一个语法糖。如下所示(其实没用到过generator..所以不知道这玩意儿有啥用)。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">example</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> () =&gt; {
+    <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">excuteAfterTwoSec</span>();
+    <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">excuteAfterOneSec</span>();
+  }
+<span style="color:#75715e">// 等价于
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">example</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> () =&gt; {
+    <span style="color:#a6e22e">excuteAfterTwoSec</span>().<span style="color:#a6e22e">then</span>(() =&gt; <span style="color:#a6e22e">excuteAfterOneSec</span>());
+  }
+</code></pre></div><h2 id="为什么">为什么</h2>
+<p>  之前刚刚接触promise的时候好奇过一段时间，原本用ajax之类的方法，然后在访问接口之后执行回调函数，已经是很方便了呀，我为啥要用promise，还有现在的这个async/await？<br>
+  我特么现在终于是知道了，当我需要访问三个接口，我需要三个接口全通之后再进行操作(这样的设计是很多的&hellip;.)我如果用回调函数的话就会陷入回调地狱..</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">ajax</span>({
+  <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span><span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">firstUrl</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
+  <span style="color:#a6e22e">success</span><span style="color:#f92672">:</span>() =&gt;{
+    <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">ajax</span>({
+      <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span><span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">secondUrl</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
+      <span style="color:#a6e22e">success</span><span style="color:#f92672">:</span>() =&gt; {
+        <span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">ajax</span>({
+          <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span><span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">thirdUrl</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>,
+          <span style="color:#a6e22e">success</span><span style="color:#f92672">:</span>() =&gt; {<span style="color:#a6e22e">finalExcute</span>()} ,
+          <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span>()=&gt;{<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">error</span>)}
+        })
+      }
+     <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span>()=&gt;{<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">error</span>)}
+    })
+  }
+  <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span>(<span style="color:#a6e22e">error</span>) =&gt; {<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">error</span>)}
+})
+</code></pre></div><p>  不说有多难看，我即使接口方面没有依赖我依然必须顺序执行&hellip;要是接口响应很慢，一个加载等一年？要是碰到上面那个需要十个接口全部访问之后再执行的功能，画面太美不敢看&hellip;&hellip;<br>
+  针对于这种写法，对于没有接口返回数据依赖的接口promise完全可以用Promise.All解决回调地狱，而且人家还可以用catch来统一处理异常，多个接口访问后执行的实现也更加优雅有效率，而且链式调用用这也比回调函数舒服。<br>
+  async/await最爽了，至少在代码层面上看着非常的清爽，避免回调，用try catch处理异常(在这之前写js我根本用不到try catch这个语法的)&hellip;</p>
+<!-- raw HTML omitted -->
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">xia</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+      2019-04-29
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://tommy0121.github.io/tags/javascript/">javascript</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/%E8%81%8A%E5%A4%A9%E6%A1%86%E6%95%88%E6%9E%9C/">
+            
+            <i class="iconfont">
+              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+            </i>
+            <span class="prev-text nav-default">聊天框效果</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/react%E5%9F%BA%E7%A1%80%E4%BC%98%E5%8C%96/">
+            <span class="next-text nav-default">React基础优化</span>
+            <span class="prev-text nav-mobile">Next</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+    
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+
+
+<a href="https://tommy0121.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2019 -
+    2020
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        xia
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.dee43230127a73d039a734510fa896c89c3c7ce0cf0be0c7a7433f8fd69b76dc.js" integrity="sha256-3uQyMBJ6c9A5pzRRD6iWyJw8fODPC&#43;DHp0M/j9abdtw=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

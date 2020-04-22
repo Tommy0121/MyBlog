@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>react on My New Hugo Site</title>
+    <link>https://tommy0121.github.io/tags/react/</link>
+    <description>Recent content in react on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 10 Apr 2020 13:27:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://tommy0121.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>React Diff</title>
+      <link>https://tommy0121.github.io/post/diff/</link>
+      <pubDate>Fri, 10 Apr 2020 13:27:00 +0800</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/diff/</guid>
+      <description>emm会用react，咱都知道react用virtual dom的形式解耦了视图层级和代码的交互操作。 既然托管了view层次的生成，react</description>
+    </item>
+    
+    <item>
+      <title>前端本地依赖</title>
+      <link>https://tommy0121.github.io/post/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAreact%E7%8E%AF%E5%A2%83%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%8E%AF%E5%A2%83%E4%BA%8C/</link>
+      <pubDate>Thu, 15 Aug 2019 14:55:22 +0800</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAreact%E7%8E%AF%E5%A2%83%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%8E%AF%E5%A2%83%E4%BA%8C/</guid>
+      <description>上次写的简单搭建一个react环境(一)，简单的整了几个常用的组件库，然后整了个test的set up。然而，当我做到一些用node写api的</description>
+    </item>
+    
+    <item>
+      <title>简单搭建一个react开发环境</title>
+      <link>https://tommy0121.github.io/post/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAreact%E7%8E%AF%E5%A2%83%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%8E%AF%E5%A2%831/</link>
+      <pubDate>Wed, 07 Aug 2019 15:03:33 +0800</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAreact%E7%8E%AF%E5%A2%83%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%8E%AF%E5%A2%831/</guid>
+      <description>1一个正常的前端工程化环境 想到react环境的话第一就是create-react-app呗，官方指定脚手架。然而，一个正常的前端开发环境，测</description>
+    </item>
+    
+    <item>
+      <title>Redux Thunk以及简易middleware构建</title>
+      <link>https://tommy0121.github.io/post/redux-thunk%E4%BB%A5%E5%8F%8A%E7%AE%80%E6%98%93middleware%E6%9E%84%E5%BB%BA/</link>
+      <pubDate>Sun, 30 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/redux-thunk%E4%BB%A5%E5%8F%8A%E7%AE%80%E6%98%93middleware%E6%9E%84%E5%BB%BA/</guid>
+      <description>咱之前有记录过关于redux的东西。然而就算加上了redux，react依然不能作为一个完整框架使用(其实人家本就只算是个lib&amp;helli</description>
+    </item>
+    
+    <item>
+      <title>Jest React Test</title>
+      <link>https://tommy0121.github.io/post/jest-react-test/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/jest-react-test/</guid>
+      <description>首先呢，咱这里要求测试覆盖率要有90以上，UI也要测。原本用的mocha测试框架，然后由于有大量的UI需要测试，导致了测试代码比原本的代码还</description>
+    </item>
+    
+    <item>
+      <title>聊天框效果</title>
+      <link>https://tommy0121.github.io/post/%E8%81%8A%E5%A4%A9%E6%A1%86%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/%E8%81%8A%E5%A4%A9%E6%A1%86%E6%95%88%E6%9E%9C/</guid>
+      <description>1：需求 原需求是要做个聊天框效果，但是聊天框是从下到上的..原本一般的从上到下聊天框就很简单，我只要把动画效果封装到组件里面，然后延迟给数组</description>
+    </item>
+    
+    <item>
+      <title>React基础优化</title>
+      <link>https://tommy0121.github.io/post/react%E5%9F%BA%E7%A1%80%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Mon, 29 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/react%E5%9F%BA%E7%A1%80%E4%BC%98%E5%8C%96/</guid>
+      <description>首先声明写这篇文章的上下文：其实就是项目中碰到了很好奇&amp;hellip;. list和key React的初学者一开始一定会有一个疑问：我在jsx</description>
+    </item>
+    
+    <item>
+      <title>Jsx Virtual Dom</title>
+      <link>https://tommy0121.github.io/post/jsx-virtual-dom/</link>
+      <pubDate>Sun, 28 Apr 2019 13:17:36 +0800</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/jsx-virtual-dom/</guid>
+      <description>换了项目组，用react做东西也有段时间了，是时候记录一下学习使用中的遇到的一些问题。 jsx 首先，最开始使用react就有的疑惑，render(</description>
+    </item>
+    
+  </channel>
+</rss>
