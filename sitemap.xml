@@ -3,27 +3,62 @@
   
   <url>
     <loc>https://tommy0121.github.io/categories/</loc>
-    <lastmod>2020-04-10T13:27:00+08:00</lastmod>
+    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommy0121.github.io/tags/javascript/</loc>
-    <lastmod>2020-04-10T13:27:00+08:00</lastmod>
+    <loc>https://tommy0121.github.io/tags/code-smell/</loc>
+    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tommy0121.github.io/</loc>
-    <lastmod>2020-04-10T13:27:00+08:00</lastmod>
+    <loc>https://tommy0121.github.io/categories/development/</loc>
+    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommy0121.github.io/tags/java/</loc>
+    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommy0121.github.io/post/java-avoid-not-equal-null/</loc>
+    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://tommy0121.github.io/post/</loc>
+    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommy0121.github.io/tags/</loc>
+    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommy0121.github.io/</loc>
+    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tommy0121.github.io/tags/javascript/</loc>
     <lastmod>2020-04-10T13:27:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -44,22 +79,8 @@
   </url>
   
   <url>
-    <loc>https://tommy0121.github.io/tags/</loc>
-    <lastmod>2020-04-10T13:27:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://tommy0121.github.io/categories/theory/</loc>
     <lastmod>2020-04-10T13:27:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/categories/development/</loc>
-    <lastmod>2019-08-15T14:55:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

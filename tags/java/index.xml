@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on tommy&#39;s blog</title>
+    <link>https://tommy0121.github.io/tags/java/</link>
+    <description>Recent content in Java on tommy&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 29 Apr 2020 14:17:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://tommy0121.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java Avoid Not Equal Null</title>
+      <link>https://tommy0121.github.io/post/java-avoid-not-equal-null/</link>
+      <pubDate>Wed, 29 Apr 2020 14:17:22 +0800</pubDate>
+      
+      <guid>https://tommy0121.github.io/post/java-avoid-not-equal-null/</guid>
+      <description>太长不想看：使用Java8开始能用Optional类包装Object。 代码如下 正文。 无聊开始看看Java，然后心血来潮，准备把之前做过的IO</description>
+    </item>
+    
+  </channel>
+</rss>
