@@ -6,73 +6,9 @@
     <description>Recent content in Tags on tommy&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 29 Apr 2020 14:17:22 +0800</lastBuildDate>
     
 	<atom:link href="https://tommy0121.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>code smell</title>
-      <link>https://tommy0121.github.io/tags/code-smell/</link>
-      <pubDate>Wed, 29 Apr 2020 14:17:22 +0800</pubDate>
-      
-      <guid>https://tommy0121.github.io/tags/code-smell/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Java</title>
-      <link>https://tommy0121.github.io/tags/java/</link>
-      <pubDate>Wed, 29 Apr 2020 14:17:22 +0800</pubDate>
-      
-      <guid>https://tommy0121.github.io/tags/java/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>javascript</title>
-      <link>https://tommy0121.github.io/tags/javascript/</link>
-      <pubDate>Fri, 10 Apr 2020 13:27:00 +0800</pubDate>
-      
-      <guid>https://tommy0121.github.io/tags/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>react</title>
-      <link>https://tommy0121.github.io/tags/react/</link>
-      <pubDate>Fri, 10 Apr 2020 13:27:00 +0800</pubDate>
-      
-      <guid>https://tommy0121.github.io/tags/react/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>前端工程</title>
-      <link>https://tommy0121.github.io/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B/</link>
-      <pubDate>Thu, 15 Aug 2019 14:55:22 +0800</pubDate>
-      
-      <guid>https://tommy0121.github.io/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>redux middleware</title>
-      <link>https://tommy0121.github.io/tags/redux-middleware/</link>
-      <pubDate>Sun, 30 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://tommy0121.github.io/tags/redux-middleware/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>https://tommy0121.github.io/tags/git/</link>
-      <pubDate>Mon, 24 Jun 2019 14:27:06 +0800</pubDate>
-      
-      <guid>https://tommy0121.github.io/tags/git/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>

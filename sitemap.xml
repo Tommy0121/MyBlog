@@ -3,189 +3,18 @@
   
   <url>
     <loc>https://tommy0121.github.io/categories/</loc>
-    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/tags/code-smell/</loc>
-    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/categories/development/</loc>
-    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/tags/java/</loc>
-    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/java-avoid-not-equal-null/</loc>
-    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/</loc>
-    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://tommy0121.github.io/tags/</loc>
-    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://tommy0121.github.io/</loc>
-    <lastmod>2020-04-29T14:17:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/tags/javascript/</loc>
-    <lastmod>2020-04-10T13:27:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/tags/react/</loc>
-    <lastmod>2020-04-10T13:27:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/diff/</loc>
-    <lastmod>2020-04-10T13:27:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/categories/theory/</loc>
-    <lastmod>2020-04-10T13:27:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B/</loc>
-    <lastmod>2019-08-15T14:55:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAreact%E7%8E%AF%E5%A2%83%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%8E%AF%E5%A2%83%E4%BA%8C/</loc>
-    <lastmod>2019-08-15T14:55:22+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAreact%E7%8E%AF%E5%A2%83%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%8E%AF%E5%A2%831/</loc>
-    <lastmod>2019-08-07T15:03:33+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/closure/</loc>
-    <lastmod>2019-08-07T12:26:18+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/tags/redux-middleware/</loc>
-    <lastmod>2019-06-30T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/redux-thunk%E4%BB%A5%E5%8F%8A%E7%AE%80%E6%98%93middleware%E6%9E%84%E5%BB%BA/</loc>
-    <lastmod>2019-06-30T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/tags/git/</loc>
-    <lastmod>2019-06-24T14:27:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/%E8%B0%88%E8%B0%88git-flow/</loc>
-    <lastmod>2019-06-24T14:27:06+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/jest-react-test/</loc>
-    <lastmod>2019-06-10T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/categories/react-test/</loc>
-    <lastmod>2019-06-10T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/%E8%81%8A%E5%A4%A9%E6%A1%86%E6%95%88%E6%9E%9C/</loc>
-    <lastmod>2019-05-06T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/promise-async/</loc>
-    <lastmod>2019-04-29T13:41:10+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/react%E5%9F%BA%E7%A1%80%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2019-04-29T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/jsx-virtual-dom/</loc>
-    <lastmod>2019-04-28T13:17:36+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://tommy0121.github.io/post/es6-class/</loc>
-    <lastmod>2019-04-24T11:25:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
