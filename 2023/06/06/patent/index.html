@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript,nodejs,proxy," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;芜湖，申请的专利终于成功了，虽然其实也是比较简单的东西，但属实是想要分享一下本次申请专利   &amp;emsp;&amp;emsp;这个技术最开始还是刚入职时，同事介绍了目前开发痛点：项目过多，有用gulp的，有自己用webpack搭建的，有用vue-cli的。导致了一个问题，每个项目各自的开发方式不同，甚至于启动项目的npm script都不同，导致新人开发很困惑，解决这个问题就是当年">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人生的第一个专利">
+<meta property="og:url" content="http://tommy0121.github.io/2023/06/06/patent/index.html">
+<meta property="og:site_name" content="tommy的前端博客">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;芜湖，申请的专利终于成功了，虽然其实也是比较简单的东西，但属实是想要分享一下本次申请专利   &amp;emsp;&amp;emsp;这个技术最开始还是刚入职时，同事介绍了目前开发痛点：项目过多，有用gulp的，有自己用webpack搭建的，有用vue-cli的。导致了一个问题，每个项目各自的开发方式不同，甚至于启动项目的npm script都不同，导致新人开发很困惑，解决这个问题就是当年">
+<meta property="og:image" content="https://i.imgloc.com/2023/06/07/Vl1Dh3.png">
+<meta property="og:image" content="https://i.imgloc.com/2023/06/07/Vl1tH5.png">
+<meta property="article:published_time" content="2023-06-06T06:49:33.000Z">
+<meta property="article:modified_time" content="2024-03-13T01:53:11.308Z">
+<meta property="article:author" content="Tommy xia">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="nodejs">
+<meta property="article:tag" content="proxy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgloc.com/2023/06/07/Vl1Dh3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tommy0121.github.io/2023/06/06/patent/"/>
+
+
+
+
+
+  <title>人生的第一个专利 | tommy的前端博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tommy的前端博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://tommy0121.github.io/2023/06/06/patent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tommy xia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tommy的前端博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">人生的第一个专利</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-06-06T14:49:33+08:00">
+                2023-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;芜湖，申请的专利终于成功了，虽然其实也是比较简单的东西，但属实是想要分享一下本次申请专利<img src="https://i.imgloc.com/2023/06/07/Vl1Dh3.png" alt="专利书">  </p>
+<p>&emsp;&emsp;这个技术最开始还是刚入职时，同事介绍了目前开发痛点：项目过多，有用gulp的，有自己用webpack搭建的，有用vue-cli的。导致了一个问题，每个项目各自的开发方式不同，甚至于启动项目的npm script都不同，导致新人开发很困惑，解决这个问题就是当年的okr目标  </p>
+<p>&emsp;&emsp;同时呢，我在开发一些gulp打包的项目的时候发现有些项目没有dev-server，必须使用charles代理才能开发，但此时我还无法申请charles账号，于是我寻思，nodejs就没有相关的代理工具吗。  </p>
+<p>&emsp;&emsp;其实网上随便就搜到了，github 搜nodejs proxy，发现有一个阿里的anyproxy(事实证明anyproxy不好用，也没人维护了。后续打算更换为whistle)，<img src="https://i.imgloc.com/2023/06/07/Vl1tH5.png" alt="anyproxy">  </p>
+<p>&emsp;&emsp;于是呢，使用anyproxy简单搭建了一个小工具，具体功能就是读取当前项目下的proxy配置，启动一个代理服务器。  </p>
+<p>&emsp;&emsp;这个时候发现全局代理会有比较大的性能问题，又去找了一个chrome插件 Switchy Omega，将一些项目中的域名配置为需要代理，代理地址就是本地代理服务地址。  </p>
+<p>&emsp;&emsp;到此为止，其实就已经大致解决了多项目开发模式不统一的问题，我在每个项目中配好配置文件，然后设定统一的npm script，此script的作用是在执行npm script时执行项目的watch或者server，然后启动proxy服务器(当然这步是不需要开发者关心的，执行就完事了)。然后访问需要代理的网站，切换switchyOmega即可，当然这里的switchyOmega的配置是提前配置好的，导入配置然后切换指定的规则即可。  </p>
+<p>&emsp;&emsp;这里顺便推荐一个可同时执行多个命令行的小工具 concurrently。  </p>
+<p>&emsp;&emsp;后续呢，又反馈了一个问题：如果同时开启多个项目，需要有配置同步功能（主要是可能在开发过程中会有排查其他项目问题的时候）。  </p>
+<p>&emsp;&emsp;一开始呢，我想的是简单搞搞，在启动进程的时候首先判断某个公用路径是否有配置文件，若无则上报当前配置，启动代理服务，并对这个文件进行watch，后续新进程也是判断公共配置文件是否有配置，有，则直接上报配置即可，启动代理进程的进程在杀死时需要删除原有配置</p>
+<p>&emsp;&emsp;后来发现这种写法有问题，具体就是文件的写入和创建删除是有延迟的，如果主要进程已经被关闭了，在删除文件的过程中我又开启新代理进程，此时文件并没有被删除，会认为已经有代理进程，然后仅作上报配置功能。  </p>
+<p>&emsp;&emsp;后来发现吧，其实本质上就是一个进程间通信的问题，可以复习一下进程间通信的几种方式</p>
+<ul>
+<li>管道(pipe)</li>
+<li>消息队列</li>
+<li>共享内存()</li>
+<li>信号量(semophore)</li>
+<li>信号(sinal)</li>
+<li>套接字</li>
+</ul>
+<p>&emsp;&emsp;想都不用想，webSocket走起，具体思路是在启动代理服务时，首相判断是否有代理进程启动，若无，则启动两个进程一个具体的代理进程，一个用于上报当前配置进程。于此同时代理进程需要不断判断上报进程是否被杀死，如果被杀死则删除对应的配置，如果已经没有活跃的配置上报进程，则杀死自身(其实就是轮训ping一下所有客户端，挂了就删配置就行)。  </p>
+<p>&emsp;&emsp;到此为止就是本次专利的所有内容了，其实也很简单，但是也确实是日常中所碰到的卡点问题。算是解决了日常工程化问题的一部分。其实这么看来，其实很多时候有些自己想出来的点子要改也是可以申请专利的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/proxy/" rel="tag"># proxy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/30/png-md/" rel="next" title="png压缩初探">
+                <i class="fa fa-chevron-left"></i> png压缩初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/06/07/figma/" rel="prev" title="figma插件图标管理">
+                figma插件图标管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tommy xia</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Tommy0121" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tommy xia</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

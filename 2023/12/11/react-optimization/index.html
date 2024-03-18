@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript,react," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;太长不看 -&gt; 视图不显示的内容多用useRef，多用useMemo和useCallback，如果逻辑比较内聚，可以封装逻辑到 class，然后自己判断需要更新的时机，手动调用方法去重新render组件。 &amp;emsp;&amp;emsp;在做自己的小项目的时候，突然想到，react优化本质上是阻止react不必要的刷新，那么除了什么list加key避免无效diff，使用pur">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react 代码优化">
+<meta property="og:url" content="http://tommy0121.github.io/2023/12/11/react-optimization/index.html">
+<meta property="og:site_name" content="tommy的前端博客">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;太长不看 -&gt; 视图不显示的内容多用useRef，多用useMemo和useCallback，如果逻辑比较内聚，可以封装逻辑到 class，然后自己判断需要更新的时机，手动调用方法去重新render组件。 &amp;emsp;&amp;emsp;在做自己的小项目的时候，突然想到，react优化本质上是阻止react不必要的刷新，那么除了什么list加key避免无效diff，使用pur">
+<meta property="article:published_time" content="2023-12-11T07:03:10.000Z">
+<meta property="article:modified_time" content="2024-03-18T01:35:25.946Z">
+<meta property="article:author" content="Tommy xia">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tommy0121.github.io/2023/12/11/react-optimization/"/>
+
+
+
+
+
+  <title>react 代码优化 | tommy的前端博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tommy的前端博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://tommy0121.github.io/2023/12/11/react-optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tommy xia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tommy的前端博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">react 代码优化</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-12-11T15:03:10+08:00">
+                2023-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/theory/" itemprop="url" rel="index">
+                    <span itemprop="name">theory</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;太长不看 -&gt; 视图不显示的内容多用useRef，多用useMemo和useCallback，如果逻辑比较内聚，可以封装逻辑到 class，然后自己判断需要更新的时机，手动调用方法去重新render组件。</p>
+<p>&emsp;&emsp;在做自己的小项目的时候，突然想到，react优化本质上是阻止react不必要的刷新，那么除了什么list加key避免无效diff，使用pureComponent和React.memo，等官方说烂了的方法之外，我们在日常开发中要如何写一个让react少render的组件呢。  </p>
+<p>&emsp;&emsp;比如以下例子，我们有一个form</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useContext &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; RepoContext, type RepoInfo &#125; <span class="keyword">from</span> <span class="string">'@/hooks/useRepoInfoContext'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TokenForm = (): React.JSX.Element | <span class="function"><span class="params">null</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; repoInfo, saveRepoInfo &#125; = useContext(RepoContext);</span><br><span class="line">  <span class="keyword">const</span> &#123;tempRepoInfo, setTempRepoInfo&#125; = useState(repoInfo)</span><br><span class="line">  <span class="keyword">const</span> handleSaveRepoInfo = (): <span class="function"><span class="params">void</span> =&gt;</span> &#123;</span><br><span class="line">    saveRepoInfo(tempRepoInfo);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;input</span><br><span class="line">            onInput=&#123;(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; &#123;</span><br><span class="line">              setTempRepoInfo(&#123;...tempRepoInfo,<span class="attr">token</span>:e.detail.value&#125;)</span><br><span class="line">            &#125;&#125;</span><br><span class="line">            defaultValue=&#123;repoInfo.token&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;input</span></span><br><span class="line"><span class="regexp">            onInput=&#123;(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">               setTempRepoInfo(&#123;...tempRepoInfo,domain:e.detail.value&#125;)</span></span><br><span class="line"><span class="regexp">            &#125;&#125;</span></span><br><span class="line"><span class="regexp">            defaultValue=&#123;repoInfo.domain&#125;</span></span><br><span class="line"><span class="regexp">          /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;input</span></span><br><span class="line"><span class="regexp">            onInput=&#123;(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">                setTempRepoInfo(&#123;...tempRepoInfo,projectId:e.detail.value&#125;)</span></span><br><span class="line"><span class="regexp">            &#125;&#125;</span></span><br><span class="line"><span class="regexp">            defaultValue=&#123;repoInfo.projectId&#125;</span></span><br><span class="line"><span class="regexp">          /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Button  onClick=&#123;handleSaveRepoInfo&#125;&gt;</span></span><br><span class="line"><span class="regexp">          提交</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Button&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default TokenForm;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;代码很简单，但是问题也很大。因为这里我使用了一个tempRepoInfo去存储临时数据，但是我使用了useState，这就会导致我每一次输入都会重新渲染一次组件，但是其实我们每一次输入后不需要render组件，输入框也会显示我们输入的数据，我们应该避免每次render，所以这里我们不使用state来控制tempRepoInfo，代码就变成了如下所示</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useContext &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; RepoContext, type RepoInfo &#125; <span class="keyword">from</span> <span class="string">'@/hooks/useRepoInfoContext'</span>;</span><br><span class="line"><span class="keyword">const</span> tempRepoInfo: RepoInfo = &#123;</span><br><span class="line">  token: <span class="string">''</span>,</span><br><span class="line">  domain: <span class="string">''</span>,</span><br><span class="line">  projectId: <span class="string">''</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> TokenForm = (): React.JSX.Element | <span class="function"><span class="params">null</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; repoInfo, saveRepoInfo &#125; = useContext(RepoContext);</span><br><span class="line">  <span class="keyword">const</span> handleSaveRepoInfo = (): <span class="function"><span class="params">void</span> =&gt;</span> &#123;</span><br><span class="line">    saveRepoInfo(tempRepoInfo);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;input</span><br><span class="line">            onInput=&#123;(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; &#123;</span><br><span class="line">             tempRepoInfo.token = e.target.value;</span><br><span class="line">            &#125;&#125;</span><br><span class="line">            defaultValue=&#123;repoInfo.token&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;input</span></span><br><span class="line"><span class="regexp">            onInput=&#123;(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">              tempRepoInfo.domain = e.target.value;</span></span><br><span class="line"><span class="regexp">            &#125;&#125;</span></span><br><span class="line"><span class="regexp">            defaultValue=&#123;repoInfo.domain&#125;</span></span><br><span class="line"><span class="regexp">          /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;input</span></span><br><span class="line"><span class="regexp">            onInput=&#123;(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">                tempRepoInfo.domain = e.target.value;</span></span><br><span class="line"><span class="regexp">            &#125;&#125;</span></span><br><span class="line"><span class="regexp">            defaultValue=&#123;repoInfo.projectId&#125;</span></span><br><span class="line"><span class="regexp">          /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Button  onClick=&#123;handleSaveRepoInfo&#125;&gt;</span></span><br><span class="line"><span class="regexp">          提交</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Button&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default TokenForm;</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;试了下代码没问题，但是这样的话变量在外面，所以建议使用react的useRef去存储这个变量。那么基于这一点，如果我们需要封装一个useRequest的话以下代码会不会有问题呢</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UseRequestReturn&lt;T <span class="keyword">extends</span> (...args: <span class="built_in">any</span>) =&gt; <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt;&gt; = &#123;</span><br><span class="line">  run: <span class="function">(<span class="params">...param: Parameters&lt;T&gt;</span>) =&gt;</span> <span class="built_in">Promise</span>&lt;<span class="literal">undefined</span>&gt;;</span><br><span class="line">  loading: <span class="built_in">boolean</span>;</span><br><span class="line">  data: PromiseReturn&lt;T&gt; | <span class="literal">null</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> PromiseReturn&lt;T&gt; = T <span class="keyword">extends</span> (...args: <span class="built_in">any</span>) =&gt; <span class="built_in">Promise</span>&lt;infer R&gt; ? R : T;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &lt;T <span class="keyword">extends</span> (...args: <span class="built_in">any</span>) =&gt; <span class="built_in">Promise</span>&lt;<span class="built_in">any</span>&gt;&gt;(</span><br><span class="line">  fn: T <span class="keyword">extends</span> (...args: <span class="built_in">any</span>) =&gt; <span class="built_in">Promise</span>&lt;infer R&gt; ? T : T,</span><br><span class="line">): UseRequestReturn&lt;T&gt; =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [data, setData] = useState&lt;<span class="literal">null</span> | PromiseReturn&lt;T&gt;&gt;(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> [loading, setLoading] = useState(<span class="literal">false</span>);</span><br><span class="line">  <span class="keyword">const</span> run = <span class="keyword">async</span> (...param: Parameters&lt;T&gt;): <span class="built_in">Promise</span>&lt;<span class="literal">undefined</span>&gt; =&gt; &#123;</span><br><span class="line">    setLoading(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> fn(...param);</span><br><span class="line">    setData(result);</span><br><span class="line">    setLoading(<span class="literal">false</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; run, loading, data &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;看上去好像是没问题的，但事实上我们用了两个state，这个时候肯定有疑惑了，react自动批量更新，有个锤子问题。嘛，批量更新是17就能用了，但是17的批量更新是有问题的，它只会在react事件中进行批量更新，在promise、setTimeout、native event中是不会有批量更新的，只有在react 18中实现了所有异步事件的批量更新。  </p>
+<p>&emsp;&emsp;所以我们应该如何去修改呢，可以去参考一下ahook的代码，里面有一个useUpdate方法，直接返回了一个setState，然后手动执行setState就相当于强制更新页面。所以思路就是将request相关的内容封装为一个class，然后仅在我们认为需要刷新到地方的地方手动update就行了。代码如下  </p>
+<p>&emsp;&emsp;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/12/05/js-clipboard/" rel="next" title="js复制文本到剪切板.md">
+                <i class="fa fa-chevron-left"></i> js复制文本到剪切板.md
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2024/03/13/jenkins/" rel="prev" title="从零到一：使用Jenkins配置Web应用的完整指南">
+                从零到一：使用Jenkins配置Web应用的完整指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tommy xia</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Tommy0121" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tommy xia</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

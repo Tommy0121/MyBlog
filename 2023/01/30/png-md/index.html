@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="png,图片," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;之前写插件，碰到了需要压缩图片的场景，当时设计给到的参考对象是 tinyPng，压缩后的图片能达到 tinyPng 的效果即可（图片质量   压缩率）。 &amp;emsp;&amp;emsp;最初设想当然是直接用 tinyPng，但是现在 tinyPng 有免费数量限制，每月免费 500 张，超出计费。这当然是不能忍的，于是就找了 nodejs 的相关压缩工具，压缩 png 广泛使用的就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="png压缩初探">
+<meta property="og:url" content="http://tommy0121.github.io/2023/01/30/png-md/index.html">
+<meta property="og:site_name" content="tommy的前端博客">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;之前写插件，碰到了需要压缩图片的场景，当时设计给到的参考对象是 tinyPng，压缩后的图片能达到 tinyPng 的效果即可（图片质量   压缩率）。 &amp;emsp;&amp;emsp;最初设想当然是直接用 tinyPng，但是现在 tinyPng 有免费数量限制，每月免费 500 张，超出计费。这当然是不能忍的，于是就找了 nodejs 的相关压缩工具，压缩 png 广泛使用的就">
+<meta property="og:image" content="https://i.328888.xyz/2023/01/30/8id03.png">
+<meta property="og:image" content="https://i.328888.xyz/2023/01/30/jq5Jc.png">
+<meta property="og:image" content="https://i.328888.xyz/2023/01/30/8nvHc.png">
+<meta property="og:image" content="https://i.328888.xyz/2023/01/30/8np43.png">
+<meta property="og:image" content="https://i.328888.xyz/2023/01/30/8n5NX.png">
+<meta property="article:published_time" content="2023-01-30T02:17:19.000Z">
+<meta property="article:modified_time" content="2024-03-13T01:53:11.310Z">
+<meta property="article:author" content="Tommy xia">
+<meta property="article:tag" content="png">
+<meta property="article:tag" content="图片">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.328888.xyz/2023/01/30/8id03.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tommy0121.github.io/2023/01/30/png-md/"/>
+
+
+
+
+
+  <title>png压缩初探 | tommy的前端博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tommy的前端博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://tommy0121.github.io/2023/01/30/png-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tommy xia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tommy的前端博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">png压缩初探</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-01-30T10:17:19+08:00">
+                2023-01-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;之前写插件，碰到了需要压缩图片的场景，当时设计给到的参考对象是 tinyPng，压缩后的图片能达到 tinyPng 的效果即可（图片质量   压缩率）。</p>
+<p>&emsp;&emsp;最初设想当然是直接用 tinyPng，但是现在 tinyPng 有免费数量限制，每月免费 500 张，超出计费。这当然是不能忍的，于是就找了 nodejs 的相关压缩工具，压缩 png 广泛使用的就找到以下两个 sharp.js、pngquant。</p>
+<p>&emsp;&emsp;三个压缩工具现在来做个对比，主要是压缩率做个对比，首先用一个复杂的图片，如下</p>
+<p><img src="https://i.328888.xyz/2023/01/30/8id03.png" alt="原始图片"></p>
+<p>pngquant 质量范围设置为 0.7-0.8, sharpjs 质量设置为 80 最终压缩后</p>
+<table>
+<thead>
+<tr>
+<th>图片</th>
+<th>大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pngquant</td>
+<td>1.1MB</td>
+</tr>
+<tr>
+<td>sharpjs</td>
+<td>1.4MB</td>
+</tr>
+<tr>
+<td>tinyPng</td>
+<td>962KB</td>
+</tr>
+</tbody></table>
+<p>代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> imagemin <span class="keyword">from</span> <span class="string">"imagemin"</span>;</span><br><span class="line"><span class="keyword">import</span> imageminPngquant <span class="keyword">from</span> <span class="string">"imagemin-pngquant"</span>;</span><br><span class="line"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">"fs"</span>;</span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">"path"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; fileURLToPath &#125; <span class="keyword">from</span> <span class="string">"url"</span>;</span><br><span class="line"><span class="keyword">import</span> sharp <span class="keyword">from</span> <span class="string">"sharp"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> __filename = fileURLToPath(<span class="keyword">import</span>.meta.url);</span><br><span class="line"><span class="keyword">const</span> __dirname = path.dirname(__filename);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baseName = <span class="string">"bb"</span>;</span><br><span class="line"><span class="keyword">const</span> imageBuffer = fs.readFileSync(path.join(__dirname, baseName + <span class="string">".png"</span>));</span><br><span class="line">imagemin</span><br><span class="line">  .buffer(imageBuffer, &#123; <span class="attr">plugins</span>: [imageminPngquant(&#123; <span class="attr">quality</span>: [<span class="number">0.7</span>, <span class="number">0.8</span>] &#125;)] &#125;)</span><br><span class="line">  .then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">    fs.writeFileSync(path.join(__dirname, baseName + <span class="string">"pngquant.png"</span>), result);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">sharp(imageBuffer)</span><br><span class="line">  .png(&#123;</span><br><span class="line">    quality: <span class="number">80</span>,</span><br><span class="line">    compressionLevel: <span class="number">9</span>,</span><br><span class="line">    adaptiveFiltering: <span class="literal">true</span>,</span><br><span class="line">    force: <span class="literal">true</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">  .toBuffer()</span><br><span class="line">  .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    fs.writeFileSync(path.join(__dirname, baseName + <span class="string">"sharp.png"</span>), data);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;看上去是 tinyPng &gt; pngquant &gt; sharpjs，但是我们把压缩率调整一下 pngquant 设置为 0.3-0.4 sharpjs 设置为 40，结果如下<br>| 图片     | 大小  |<br>| ——– | —– |<br>| pngquant | 861KB |<br>| sharpjs  | 1.4MB |<br>| tinyPng  | 962KB |</p>
+<p>&emsp;&emsp;那么现在对问题就来到了 tinyPng 压缩效果是否比得上 pngquant 质量范围 0.3-0.4 了。这个时候就无法通过肉眼看需要了解一下压缩原理，通过数据说话了。通过网上的文章了解了一下 png 格式组成，参考如下[PNG 文件格式解析][<a href="https://www.ihubin.com/blog/audio-video-basic-11-png-file-format-detail/]，大佬可以直接看[png" target="_blank" rel="noopener">https://www.ihubin.com/blog/audio-video-basic-11-png-file-format-detail/]，大佬可以直接看[png</a> spec](<a href="https://www.w3.org/TR/2003/REC-PNG-20031110/)这里通过一张简单图片来分析一下" target="_blank" rel="noopener">https://www.w3.org/TR/2003/REC-PNG-20031110/)这里通过一张简单图片来分析一下</a> pngquant 和 tinyPng 压缩后的图片差异以及优劣，原图如下</p>
+<p><img src="https://i.328888.xyz/2023/01/30/jq5Jc.png" alt="原始图片"></p>
+<p>查看十六进制数据<br><img src="https://i.328888.xyz/2023/01/30/8nvHc.png" alt="原始数据"></p>
+<p>&emsp;&emsp;所需要注意的数据点都已经标注在上面了，再看看pngquant和tinyPng所压缩后的图像，首先是pngquant的。</p>
+<p><img src="https://i.328888.xyz/2023/01/30/8np43.png" alt="pngquant压缩"></p>
+<p>&emsp;&emsp;然后是tinyPng的</p>
+<p><img src="https://i.328888.xyz/2023/01/30/8n5NX.png" alt="tinyPng压缩"></p>
+<p>&emsp;&emsp;在这里我们可以看到，tinyPng把制定色域的sRGB和gAMA删掉了，而pngquant删掉了，这里会有一个大小的差距。我们可以试试吧这部分数据删除，可以发现，现在pngquant和tinyPng的差距就只有1byte。</p>
+<p>&emsp;&emsp;看上去似乎就差了这么一点内容没有删除，但是pngquant的质量范围调小后会发现，压缩率下不去了，应该是图像过于简单，后续无法优化了。依然使用上述复杂图像进行再一次对比。pngquant质量范围为0.3-0.4</p>
+<table>
+<thead>
+<tr>
+<th>图片</th>
+<th>大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pngquant</td>
+<td>868KB</td>
+</tr>
+<tr>
+<td>tinyPng</td>
+<td>963KB</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;再次查看数据，pngquant 数据plte的长度是012f 也就是 303，tinypng的plte长度是 0300 也就是 768 ，说明pngquant 0.3-0.4的质量其实是比不过tinypng的，调整一下质量参数，大致调整到两者的plte数量相等，质量区间参数大约是0.7-0.8。这个时候他们的图片大小如下</p>
+<table>
+<thead>
+<tr>
+<th>图片</th>
+<th>大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pngquant</td>
+<td>1.06MB</td>
+</tr>
+<tr>
+<td>tinyPng</td>
+<td>963KB</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;此时他们的数据差距就比较大了，这个时候我们来看看数据差距在哪里。这个时候可以用png-chunks-extract 来获取所有的png的chunk大小。 处理结果如下所示。</p>
+<table>
+<thead>
+<tr>
+<th>图片</th>
+<th>组成</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pngquant</td>
+<td>{ IHDR: 13, PLTE: 768, IDAT: 1117493, IEND: 0 }</td>
+</tr>
+<tr>
+<td>tinyPng</td>
+<td>{ IHDR: 13, PLTE: 768, IDAT: 961906, IEND: 0 }</td>
+</tr>
+</tbody></table>
+<p>&emsp;&emsp;很明显了，主要差距在于IDAT，此时我们知道，一张png，大小一致的png图片，最终解析出来的数据大小应当也是一致的。问题就只有一个，那就是IDAT的压缩算法不同，tinyPng的压缩算法更好一点。<br>&emsp;&emsp;那么压缩算法哪家强呢？我们可以找找wiki。首先，png spec规定了png的IDAT压缩算法 </p>
+<blockquote>
+<p>Compression method is a single-byte integer that indicates the method used to compress the image data. Only compression method 0 (deflate/inflate compression with a sliding window of at most 32768 bytes) is defined in this International Standard. All conforming PNG images shall be compressed with this scheme.</p>
+</blockquote>
+<p>&emsp;&emsp;而Wiki上找到了更高压缩率的算法实现是 7-zip的实现 链接如下 <a href="https://zh.wikipedia.org/wiki/Deflate" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Deflate</a></p>
+<blockquote>
+<p>更高压缩率的DEFLATE是7-zip所实现的。AdvanceCOMP也使用这种实现，它可以对gzip、PNG、MNG以及ZIP文件进行压缩从而得到比zlib更小的文件大小。在Ken Silverman的KZIP与PNGOUT中使用了一种更加高效同时要求更多用户输入的DEFLATE程序。</p>
+</blockquote>
+<p>&emsp;&emsp;此时我们只需要找到一个7-zip的实现库，给png的数据做压缩，然后分段(分段需要尽量的少一点，减少crc校验码和段长码的数量)。nodejs中可以使用 <a href="https://github.com/quentinrossetti/node-7z#commands" target="_blank" rel="noopener">https://github.com/quentinrossetti/node-7z#commands</a>这个库来进行7-zip压缩。</p>
+<p>&emsp;&emsp;尝试了一下得到压缩后的数据为999 KB (1,023,096 字节)压缩率不及tinyPng但是确实是高于pngquant。当然这里只是跑了一遍压缩，没有做分段处理，但是即使分了段，按照tinyPng那样分个两段三段，数量也比pngquant小，而且一般来说数据量越大（压缩的原图越大），最终的结果大小差距也会越大，大致来讲效果还是高于pngquant的。  </p>
+<p>&emsp;&emsp;至此，终于算是了解了tinyPng的压缩原理，大家如果不想付费使用tinyPng，也可以使用pngquant和7-zip压缩达到一个效果类似tinypng，压缩率还不错的服务。  </p>
+<p>&emsp;&emsp;后续 -&gt;<br>&emsp;&emsp;最近看到了一篇文章 <a href="https://zhuanlan.zhihu.com/p/622932470?utm_campaign=shareopn&utm_medium=social&utm_oi=681997189887299584&utm_psn=1641565922157678592&utm_source=wechat_session" target="_blank" rel="noopener">Chrome插件：切图压缩工具</a>，里面提到了一个叫做advpng 的压缩工具，用的就是上述思路。突然发现我思路有一点局限。一开始搜索压缩工具就不应该局限在nodejs，应当直接搜索图片压缩工具。如果是网页版压缩工具，可以使用puppeteer，如果是c++的工具，可以看看是不是能用node扩展。顺便的，如果看到有啥C++工具没有nodejs版本/胶水 ，可以试试搞一个，也算是这方面nodejs先驱（水github）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/png/" rel="tag"># png</a>
+          
+            <a href="/tags/%E5%9B%BE%E7%89%87/" rel="tag"># 图片</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/24/vite/" rel="next" title="vite">
+                <i class="fa fa-chevron-left"></i> vite
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/06/06/patent/" rel="prev" title="人生的第一个专利">
+                人生的第一个专利 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tommy xia</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Tommy0121" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tommy xia</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
